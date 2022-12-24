@@ -11,8 +11,7 @@ export default function Reviews() {
             }
             return response.json();
           }).then(({results})=>setReviews(results))
-    },[])
-    console.log(reviews);
+    },[id])
     return reviews.length?reviews.map(({author,content},i)=><div key={`${author}${i}`}>
         <h2>{author}</h2>
         <p>{content}</p>

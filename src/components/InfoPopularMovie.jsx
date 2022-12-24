@@ -1,7 +1,6 @@
 import { useEffect,useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import Actor from "./Actor";
 
 export default function InfoPopularMovie() {
     const {id} = useParams();
@@ -13,7 +12,7 @@ export default function InfoPopularMovie() {
             }
             return response.json();
           }).then(r=>setInfoFilm(r)).catch(console.log)
-    },[])
+    },[id])
     const{original_title,poster_path,genres,overview,vote_average,release_date}=infoFilm;
     const date = new Date(release_date).getFullYear();
     return genres &&

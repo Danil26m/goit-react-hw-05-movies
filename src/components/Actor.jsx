@@ -1,6 +1,5 @@
-import { useEffect } from "react"
-import { useState } from "react"
-import { useParams } from "react-router-dom";
+import { useEffect, useState  } from "react"
+import {useParams } from "react-router-dom";
 
 export default function Actor() {
     const {id} = useParams();
@@ -12,12 +11,12 @@ export default function Actor() {
             }
             return response.json();
           }).then(({cast})=>setActor(cast)).catch(console.log)
-    },[])
+    },[id])
     return actor.length ? actor.map(({characte,profile_path,name})=>
     <div key={name}>
         <img src={`https://www.themoviedb.org/t/p/w138_and_h175_bestv2/${profile_path}`} alt={name} />
         <p>{name}</p>
         <p>Characte: {characte}</p>
     </div>
-    ):''
+    ):'No cast'
 }
