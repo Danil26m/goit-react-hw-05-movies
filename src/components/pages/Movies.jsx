@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Link,Outlet, useSearchParams } from 'react-router-dom';
+import { Suspense, useEffect, useState } from 'react';
+import { Link,Outlet,  useLocation,useSearchParams } from 'react-router-dom';
 
 export default function Movies() {
   const [films, setFilms] = useState([]);
   const [search, setSearch] = useSearchParams();
+  const location = useLocation();
   const name = search.get('query') ?? '';
     const handelSubmit = even => {
     even.preventDefault();
@@ -37,10 +38,13 @@ export default function Movies() {
       </form>
       <ul >
     {name?
-            films.map(({original_title,id})=><Link to={`/movies/${id}`}><li key={id}>{original_title}</li></Link>)
+            films.map(({original_title,id})=><Link to={`/movies/${id}` }state={`${location.pathname}${location.search}`} key={id}><li >{original_title}</li></Link>)
         :''}  
       </ul>
-      <Outlet />
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
+      
       </>
 
 
