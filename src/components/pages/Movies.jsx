@@ -9,6 +9,10 @@ export default function Movies() {
     const handelSubmit = even => {
     even.preventDefault();
     setSearch(even.target[0].value ? { query: even.target[0].value } : {});
+    setTimeout(()=>{
+      even.target[0].value = ''
+    })
+    
     }
     
  
