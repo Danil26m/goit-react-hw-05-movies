@@ -6,7 +6,6 @@ export default function InfoPopularMovie() {
   const { id } = useParams();
   const [infoFilm, setInfoFilm] = useState([]);
   const location = useLocation();
-  console.log(location);
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/movie/${id}?api_key=74e6158a65e53d6dc937ccdd03fe4703&language=en-US`
