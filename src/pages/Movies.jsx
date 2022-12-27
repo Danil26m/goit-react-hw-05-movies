@@ -1,24 +1,18 @@
-import { Suspense, useEffect, useState } from 'react';
-import { Link,Outlet,  useLocation,useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 export default function Movies() {
   const [films, setFilms] = useState([]);
   const [search, setSearch] = useSearchParams();
   const location = useLocation();
   const name = search.get('query') ?? '';
-    const handelSubmit = even => {
+  const handelSubmit = even => {
     even.preventDefault();
     setSearch(even.target[0].value ? { query: even.target[0].value } : {});
-    setTimeout(()=>{
-      even.target[0].value = ''
-    })
-    
-    }
-    
- 
+    even.target[0].value = '';
+  };
   useEffect(() => {
     if (!name) {
-     
       return;
     }
     fetch(
@@ -32,24 +26,29 @@ export default function Movies() {
       })
       .then(({ results }) => {
         setFilms(results);
-      }).catch(console.log);
-      
-  }, [search,name]);
-  
-  return <><form action="" onSubmit={handelSubmit}>
+      })
+      .catch(console.log);
+  }, [search, name]);
+
+  return (
+    <>
+      <form action="" onSubmit={handelSubmit}>
         <input type="text" autoComplete="off" />
         <button type="submit">Searsh</button>
       </form>
-      <ul >
-    {name?
-            films.map(({original_title,id})=><Link to={`/movies/${id}` }state={`${location.pathname}${location.search}`} key={id}><li >{original_title}</li></Link>)
-        :''}  
+      <ul>
+        {name.length
+          ? films.map(({ original_title, id }) => (
+              <Link
+                to={`/movies/${id}`}
+                state={`${location.pathname}${location.search}`}
+                key={id}
+              >
+                <li>{original_title}</li>
+              </Link>
+            ))
+          : ''}
       </ul>
-      <Suspense fallback={null}>
-        <Outlet />
-      </Suspense>
-      
-      </>
-
-
+    </>
+  );
 }
