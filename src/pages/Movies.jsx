@@ -37,7 +37,7 @@ export default function Movies() {
         <button type="submit">Searsh</button>
       </form>
       <ul>
-        {name.length
+        {films.length
           ? films.map(({ original_title, id }) => (
               <Link
                 to={`/movies/${id}`}
